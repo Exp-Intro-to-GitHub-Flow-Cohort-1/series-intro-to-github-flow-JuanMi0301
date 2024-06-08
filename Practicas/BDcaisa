@@ -1,0 +1,752 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 16.3
+-- Dumped by pg_dump version 16.3
+
+-- Started on 2024-06-08 17:42:35
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 216 (class 1259 OID 16435)
+-- Name: codigo_descripcion; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.codigo_descripcion (
+    id_codigo_descripcion bigint NOT NULL,
+    descripcion character varying(255) NOT NULL,
+    "U/M" character varying(255) NOT NULL,
+    origen character varying(255) NOT NULL,
+    obtencion character varying(255) NOT NULL,
+    clasificacion bigint NOT NULL
+);
+
+
+ALTER TABLE public.codigo_descripcion OWNER TO postgres;
+
+--
+-- TOC entry 215 (class 1259 OID 16434)
+-- Name: codigo_descripcion_id_codigo_descripcion_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.codigo_descripcion_id_codigo_descripcion_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.codigo_descripcion_id_codigo_descripcion_seq OWNER TO postgres;
+
+--
+-- TOC entry 4965 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: codigo_descripcion_id_codigo_descripcion_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.codigo_descripcion_id_codigo_descripcion_seq OWNED BY public.codigo_descripcion.id_codigo_descripcion;
+
+
+--
+-- TOC entry 227 (class 1259 OID 16528)
+-- Name: datos_de_herramientas; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.datos_de_herramientas (
+    id_herramientas character varying(255) NOT NULL,
+    numero integer NOT NULL,
+    herramientas character varying(255) NOT NULL,
+    cantidad integer NOT NULL
+);
+
+
+ALTER TABLE public.datos_de_herramientas OWNER TO postgres;
+
+--
+-- TOC entry 222 (class 1259 OID 16485)
+-- Name: datos_de_insumos; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.datos_de_insumos (
+    id_insumos integer NOT NULL,
+    codigo_de_insumo character varying(255) NOT NULL,
+    insumo character varying(255) NOT NULL,
+    "u/m" character varying(255) NOT NULL,
+    cant_adicional real NOT NULL,
+    causas text NOT NULL
+);
+
+
+ALTER TABLE public.datos_de_insumos OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 16443)
+-- Name: datos_de_pieza; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.datos_de_pieza (
+    id_piezas integer NOT NULL,
+    numero numeric(19,0) NOT NULL,
+    codigo character varying(255) NOT NULL,
+    codigo_descripcionid_codigo_descripcion bigint NOT NULL,
+    posicion character varying(255) NOT NULL,
+    disegno character varying(255) NOT NULL,
+    cantidad real NOT NULL,
+    control_fisico text NOT NULL,
+    "Column" integer NOT NULL,
+    observacioes character varying(255) NOT NULL,
+    cantidad_adicional real NOT NULL,
+    causa character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.datos_de_pieza OWNER TO postgres;
+
+--
+-- TOC entry 225 (class 1259 OID 16510)
+-- Name: datos_personal; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.datos_personal (
+    persosnal text NOT NULL,
+    cantidad integer NOT NULL,
+    id_personal integer NOT NULL
+);
+
+
+ALTER TABLE public.datos_personal OWNER TO postgres;
+
+--
+-- TOC entry 228 (class 1259 OID 16535)
+-- Name: herraminetas; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.herraminetas (
+    puesto character varying(255) NOT NULL,
+    herramientas integer NOT NULL
+);
+
+
+ALTER TABLE public.herraminetas OWNER TO postgres;
+
+--
+-- TOC entry 223 (class 1259 OID 16496)
+-- Name: insumos; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.insumos (
+    puesto character varying(255) NOT NULL,
+    personal integer NOT NULL
+);
+
+
+ALTER TABLE public.insumos OWNER TO postgres;
+
+--
+-- TOC entry 226 (class 1259 OID 16519)
+-- Name: listado_de_herramientas; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.listado_de_herramientas (
+    "codigo/variante" character varying(255) NOT NULL,
+    herramientas character varying(255) NOT NULL,
+    proveedor text NOT NULL
+);
+
+
+ALTER TABLE public.listado_de_herramientas OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 16476)
+-- Name: listado_de_insumos; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.listado_de_insumos (
+    codigo_insumo character varying(255) NOT NULL,
+    insumos character varying(255) NOT NULL,
+    "u/m" character varying(255) NOT NULL,
+    origen text NOT NULL,
+    obtencion text NOT NULL
+);
+
+
+ALTER TABLE public.listado_de_insumos OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 16455)
+-- Name: listado_general; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.listado_general (
+    id_piezas integer NOT NULL,
+    puesto character varying(255) NOT NULL,
+    operaciones character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.listado_general OWNER TO postgres;
+
+--
+-- TOC entry 218 (class 1259 OID 16454)
+-- Name: listado_general_id_piezas_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.listado_general_id_piezas_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.listado_general_id_piezas_seq OWNER TO postgres;
+
+--
+-- TOC entry 4966 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: listado_general_id_piezas_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.listado_general_id_piezas_seq OWNED BY public.listado_general.id_piezas;
+
+
+--
+-- TOC entry 220 (class 1259 OID 16467)
+-- Name: nombre_de_puesto; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.nombre_de_puesto (
+    puesto character varying(255) NOT NULL,
+    nombre text NOT NULL,
+    taller text NOT NULL,
+    proceso text NOT NULL,
+    grupo text NOT NULL,
+    tallernombre_taller text NOT NULL
+);
+
+
+ALTER TABLE public.nombre_de_puesto OWNER TO postgres;
+
+--
+-- TOC entry 224 (class 1259 OID 16503)
+-- Name: operaciones; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.operaciones (
+    operaciones character varying(255) NOT NULL,
+    descripciones character varying(255) NOT NULL,
+    taller text NOT NULL
+);
+
+
+ALTER TABLE public.operaciones OWNER TO postgres;
+
+--
+-- TOC entry 229 (class 1259 OID 16542)
+-- Name: personal; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.personal (
+    personal integer NOT NULL
+);
+
+
+ALTER TABLE public.personal OWNER TO postgres;
+
+--
+-- TOC entry 230 (class 1259 OID 16547)
+-- Name: taller; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.taller (
+    nombre_taller text NOT NULL
+);
+
+
+ALTER TABLE public.taller OWNER TO postgres;
+
+--
+-- TOC entry 4741 (class 2604 OID 16438)
+-- Name: codigo_descripcion id_codigo_descripcion; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.codigo_descripcion ALTER COLUMN id_codigo_descripcion SET DEFAULT nextval('public.codigo_descripcion_id_codigo_descripcion_seq'::regclass);
+
+
+--
+-- TOC entry 4742 (class 2604 OID 16458)
+-- Name: listado_general id_piezas; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.listado_general ALTER COLUMN id_piezas SET DEFAULT nextval('public.listado_general_id_piezas_seq'::regclass);
+
+
+--
+-- TOC entry 4945 (class 0 OID 16435)
+-- Dependencies: 216
+-- Data for Name: codigo_descripcion; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.codigo_descripcion (id_codigo_descripcion, descripcion, "U/M", origen, obtencion, clasificacion) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4956 (class 0 OID 16528)
+-- Dependencies: 227
+-- Data for Name: datos_de_herramientas; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.datos_de_herramientas (id_herramientas, numero, herramientas, cantidad) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4951 (class 0 OID 16485)
+-- Dependencies: 222
+-- Data for Name: datos_de_insumos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.datos_de_insumos (id_insumos, codigo_de_insumo, insumo, "u/m", cant_adicional, causas) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4946 (class 0 OID 16443)
+-- Dependencies: 217
+-- Data for Name: datos_de_pieza; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.datos_de_pieza (id_piezas, numero, codigo, codigo_descripcionid_codigo_descripcion, posicion, disegno, cantidad, control_fisico, "Column", observacioes, cantidad_adicional, causa) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4954 (class 0 OID 16510)
+-- Dependencies: 225
+-- Data for Name: datos_personal; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.datos_personal (persosnal, cantidad, id_personal) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4957 (class 0 OID 16535)
+-- Dependencies: 228
+-- Data for Name: herraminetas; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.herraminetas (puesto, herramientas) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4952 (class 0 OID 16496)
+-- Dependencies: 223
+-- Data for Name: insumos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.insumos (puesto, personal) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4955 (class 0 OID 16519)
+-- Dependencies: 226
+-- Data for Name: listado_de_herramientas; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.listado_de_herramientas ("codigo/variante", herramientas, proveedor) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4950 (class 0 OID 16476)
+-- Dependencies: 221
+-- Data for Name: listado_de_insumos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.listado_de_insumos (codigo_insumo, insumos, "u/m", origen, obtencion) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4948 (class 0 OID 16455)
+-- Dependencies: 219
+-- Data for Name: listado_general; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.listado_general (id_piezas, puesto, operaciones) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4949 (class 0 OID 16467)
+-- Dependencies: 220
+-- Data for Name: nombre_de_puesto; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.nombre_de_puesto (puesto, nombre, taller, proceso, grupo, tallernombre_taller) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4953 (class 0 OID 16503)
+-- Dependencies: 224
+-- Data for Name: operaciones; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.operaciones (operaciones, descripciones, taller) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4958 (class 0 OID 16542)
+-- Dependencies: 229
+-- Data for Name: personal; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.personal (personal) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4959 (class 0 OID 16547)
+-- Dependencies: 230
+-- Data for Name: taller; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.taller (nombre_taller) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4967 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: codigo_descripcion_id_codigo_descripcion_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.codigo_descripcion_id_codigo_descripcion_seq', 1, false);
+
+
+--
+-- TOC entry 4968 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: listado_general_id_piezas_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.listado_general_id_piezas_seq', 1, false);
+
+
+--
+-- TOC entry 4744 (class 2606 OID 16442)
+-- Name: codigo_descripcion codigo_descripcion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.codigo_descripcion
+    ADD CONSTRAINT codigo_descripcion_pkey PRIMARY KEY (id_codigo_descripcion);
+
+
+--
+-- TOC entry 4786 (class 2606 OID 16534)
+-- Name: datos_de_herramientas datos_de_herramientas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.datos_de_herramientas
+    ADD CONSTRAINT datos_de_herramientas_pkey PRIMARY KEY (id_herramientas);
+
+
+--
+-- TOC entry 4766 (class 2606 OID 16493)
+-- Name: datos_de_insumos datos_de_insumos_id_insumos_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.datos_de_insumos
+    ADD CONSTRAINT datos_de_insumos_id_insumos_key UNIQUE (id_insumos);
+
+
+--
+-- TOC entry 4768 (class 2606 OID 16495)
+-- Name: datos_de_insumos datos_de_insumos_insumo_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.datos_de_insumos
+    ADD CONSTRAINT datos_de_insumos_insumo_key UNIQUE (insumo);
+
+
+--
+-- TOC entry 4770 (class 2606 OID 16491)
+-- Name: datos_de_insumos datos_de_insumos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.datos_de_insumos
+    ADD CONSTRAINT datos_de_insumos_pkey PRIMARY KEY (codigo_de_insumo);
+
+
+--
+-- TOC entry 4746 (class 2606 OID 16453)
+-- Name: datos_de_pieza datos_de_pieza_codigo_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.datos_de_pieza
+    ADD CONSTRAINT datos_de_pieza_codigo_key UNIQUE (codigo);
+
+
+--
+-- TOC entry 4748 (class 2606 OID 16451)
+-- Name: datos_de_pieza datos_de_pieza_numero_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.datos_de_pieza
+    ADD CONSTRAINT datos_de_pieza_numero_key UNIQUE (numero);
+
+
+--
+-- TOC entry 4750 (class 2606 OID 16449)
+-- Name: datos_de_pieza datos_de_pieza_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.datos_de_pieza
+    ADD CONSTRAINT datos_de_pieza_pkey PRIMARY KEY (id_piezas);
+
+
+--
+-- TOC entry 4778 (class 2606 OID 16518)
+-- Name: datos_personal datos_personal_id_personal_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.datos_personal
+    ADD CONSTRAINT datos_personal_id_personal_key UNIQUE (id_personal);
+
+
+--
+-- TOC entry 4780 (class 2606 OID 16516)
+-- Name: datos_personal datos_personal_persosnal_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.datos_personal
+    ADD CONSTRAINT datos_personal_persosnal_key UNIQUE (persosnal);
+
+
+--
+-- TOC entry 4788 (class 2606 OID 16541)
+-- Name: herraminetas herraminetas_herramientas_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.herraminetas
+    ADD CONSTRAINT herraminetas_herramientas_key UNIQUE (herramientas);
+
+
+--
+-- TOC entry 4790 (class 2606 OID 16539)
+-- Name: herraminetas herraminetas_puesto_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.herraminetas
+    ADD CONSTRAINT herraminetas_puesto_key UNIQUE (puesto);
+
+
+--
+-- TOC entry 4772 (class 2606 OID 16502)
+-- Name: insumos insumos_personal_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.insumos
+    ADD CONSTRAINT insumos_personal_key UNIQUE (personal);
+
+
+--
+-- TOC entry 4774 (class 2606 OID 16500)
+-- Name: insumos insumos_puesto_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.insumos
+    ADD CONSTRAINT insumos_puesto_key UNIQUE (puesto);
+
+
+--
+-- TOC entry 4782 (class 2606 OID 16527)
+-- Name: listado_de_herramientas listado_de_herramientas_herramientas_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.listado_de_herramientas
+    ADD CONSTRAINT listado_de_herramientas_herramientas_key UNIQUE (herramientas);
+
+
+--
+-- TOC entry 4784 (class 2606 OID 16525)
+-- Name: listado_de_herramientas listado_de_herramientas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.listado_de_herramientas
+    ADD CONSTRAINT listado_de_herramientas_pkey PRIMARY KEY ("codigo/variante");
+
+
+--
+-- TOC entry 4762 (class 2606 OID 16484)
+-- Name: listado_de_insumos listado_de_insumos_insumos_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.listado_de_insumos
+    ADD CONSTRAINT listado_de_insumos_insumos_key UNIQUE (insumos);
+
+
+--
+-- TOC entry 4764 (class 2606 OID 16482)
+-- Name: listado_de_insumos listado_de_insumos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.listado_de_insumos
+    ADD CONSTRAINT listado_de_insumos_pkey PRIMARY KEY (codigo_insumo);
+
+
+--
+-- TOC entry 4752 (class 2606 OID 16466)
+-- Name: listado_general listado_general_operaciones_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.listado_general
+    ADD CONSTRAINT listado_general_operaciones_key UNIQUE (operaciones);
+
+
+--
+-- TOC entry 4754 (class 2606 OID 16462)
+-- Name: listado_general listado_general_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.listado_general
+    ADD CONSTRAINT listado_general_pkey PRIMARY KEY (id_piezas);
+
+
+--
+-- TOC entry 4756 (class 2606 OID 16464)
+-- Name: listado_general listado_general_puesto_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.listado_general
+    ADD CONSTRAINT listado_general_puesto_key UNIQUE (puesto);
+
+
+--
+-- TOC entry 4758 (class 2606 OID 16475)
+-- Name: nombre_de_puesto nombre_de_puesto_nombre_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.nombre_de_puesto
+    ADD CONSTRAINT nombre_de_puesto_nombre_key UNIQUE (nombre);
+
+
+--
+-- TOC entry 4760 (class 2606 OID 16473)
+-- Name: nombre_de_puesto nombre_de_puesto_puesto_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.nombre_de_puesto
+    ADD CONSTRAINT nombre_de_puesto_puesto_key UNIQUE (puesto);
+
+
+--
+-- TOC entry 4776 (class 2606 OID 16509)
+-- Name: operaciones operaciones_operaciones_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.operaciones
+    ADD CONSTRAINT operaciones_operaciones_key UNIQUE (operaciones);
+
+
+--
+-- TOC entry 4792 (class 2606 OID 16546)
+-- Name: personal personal_personal_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.personal
+    ADD CONSTRAINT personal_personal_key UNIQUE (personal);
+
+
+--
+-- TOC entry 4794 (class 2606 OID 16553)
+-- Name: taller taller_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.taller
+    ADD CONSTRAINT taller_pkey PRIMARY KEY (nombre_taller);
+
+
+--
+-- TOC entry 4800 (class 2606 OID 16579)
+-- Name: datos_de_herramientas fkdatos_de_h116346; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.datos_de_herramientas
+    ADD CONSTRAINT fkdatos_de_h116346 FOREIGN KEY (id_herramientas) REFERENCES public.listado_de_herramientas("codigo/variante");
+
+
+--
+-- TOC entry 4798 (class 2606 OID 16574)
+-- Name: datos_de_insumos fkdatos_de_i733287; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.datos_de_insumos
+    ADD CONSTRAINT fkdatos_de_i733287 FOREIGN KEY (codigo_de_insumo) REFERENCES public.listado_de_insumos(codigo_insumo);
+
+
+--
+-- TOC entry 4795 (class 2606 OID 16554)
+-- Name: datos_de_pieza fkdatos_de_p120261; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.datos_de_pieza
+    ADD CONSTRAINT fkdatos_de_p120261 FOREIGN KEY (codigo_descripcionid_codigo_descripcion) REFERENCES public.codigo_descripcion(id_codigo_descripcion);
+
+
+--
+-- TOC entry 4796 (class 2606 OID 16559)
+-- Name: datos_de_pieza fkdatos_de_p853150; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.datos_de_pieza
+    ADD CONSTRAINT fkdatos_de_p853150 FOREIGN KEY (id_piezas) REFERENCES public.listado_general(id_piezas);
+
+
+--
+-- TOC entry 4797 (class 2606 OID 16569)
+-- Name: nombre_de_puesto fknombre_de_577796; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.nombre_de_puesto
+    ADD CONSTRAINT fknombre_de_577796 FOREIGN KEY (tallernombre_taller) REFERENCES public.taller(nombre_taller);
+
+
+--
+-- TOC entry 4799 (class 2606 OID 16564)
+-- Name: operaciones fkoperacione890666; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.operaciones
+    ADD CONSTRAINT fkoperacione890666 FOREIGN KEY (taller) REFERENCES public.taller(nombre_taller);
+
+
+-- Completed on 2024-06-08 17:42:36
+
+--
+-- PostgreSQL database dump complete
+--
+
